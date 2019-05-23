@@ -1,4 +1,4 @@
-window.menuComponent = Vue.extend({
+window.billPayMenuComponent = Vue.extend({
 
 	template:
 		`
@@ -18,20 +18,9 @@ window.menuComponent = Vue.extend({
 			[
 				//{id:0, name:"Listar Conta", url:'/bills'},
 				//{id:1, name:"Criar Contas" , url:'/bill/create'}
-				{name:"Listar Conta", routeName:'bill.list'},
-				{name:"Criar Contas" ,routeName:'bill.create'}
+				{name:"Listar Conta", routeName:'bill-pay.list'},
+				{name:"Criar Contas" ,routeName:'bill-pay.create'}
 			]
 		};
-	},
-
-	methods:{
-		showView: function(id){
-			this.$dispatch('change-activedview', id);
-			//outra forma abaixo 
-			//this.$root.$children[0].activedView = id
-			if(id == 1){
-				this.$dispatch('change-formtype', "insert");
-			}
-		},
 	},
 });

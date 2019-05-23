@@ -1,4 +1,4 @@
-window.billCreateComponent = Vue.extend({
+window.billPayCreateComponent = Vue.extend({
 	template:
 		`
 			<!-- @submit é a abreviação de v-on:submit-->
@@ -38,25 +38,34 @@ window.billCreateComponent = Vue.extend({
 			],
 			//limpar os dados form
 			bill:{date_due:'', name:'', value: 0, done:0}
-
 		};
+	},
+
+	created: function(){
+		if(this.$route.name == 'bill.update'){
+			this.formType = 'update';
+			this.getBill(this.$route.params.index)
+		}
 	},
 
 	methods: {
 
 		submit: function(){
-
 			if(this.formType =="insert"){
-				this.$dispatch('new-bill', this.bill );
+				this.$root.$children[0].billsPay.push(this.bill);
 			}
-			this.$dispatch('change-activedview', 0)
+			this.bill={date_due:'', name:'', value: 0, done:0};
+			//this.router component implicito
+			this.$router.go({name: 'bill.list'});
+		},
+
+		getBill: function(index){
+			this.bill = this.$root.$children[0].billsPay[index];
+
 		}
 	},
 
 	events:{
-		'change-formtype' : function(formType){
-			this.formType = formType;
-		},
 		'new-bill' : function(bill){
 			this.bill = bill;
 		},
